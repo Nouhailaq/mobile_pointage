@@ -149,6 +149,7 @@ function odoo_project_pointing_models(project_pointing) {
             }
             //Always Load locally stored data, whether server is running(or def may fail, because server is not up, still we will load local data)
             this.def.done(function() {
+                console.log("testhhhhhhhhhhhhh");
                 callback_function();
                 self.load_server_data().done(function() {
                     self.load_stored_data();
@@ -230,17 +231,13 @@ function odoo_project_pointing_models(project_pointing) {
             var self = this;
             //Load last 30 days data and updated localstorage and then reload models(done by load_stored_data method)
             var momObj = new moment();
+            console.log("yuuuuuu");
             var end_date = project_pointing.datetime_to_str(momObj._d);
-            var start_date = project_pointing.datetime_to_str(momObj.subtract(30, "days")._d);
-            return new project_pointing.Model(project_pointing.session, "hr.analytic.timesheet").call("load_data", {
-                domain: [["date", ">=", start_date], ["date", "<=", end_date]],
-                fields: ["id", "write_date", "create_date", "user_id", "task_id", "name", "unit_amount", "date", "account_id", 'reference_id', '__last_update']
-            }).then(function(work_activities) {
-                self.project_pointing_db.add_activities(work_activities);
-                return new project_pointing.Model(project_pointing.session, "res.users").call("name_get", [project_pointing.session.uid]).then(function(result) {
-                    project_pointing.session.display_username = result ? result[0][1] : project_pointing.session.username;
+            return new project_pointing.Model(project_pointing.session, "res.users")
+            .call("name_get", [project_pointing.session.uid]).then(function(result) {
+                    project_pointing.session.display_username = result ? result[0][1] : 
+                    project_pointing.session.username;
                 });
-            }).promise();
         },
         //TO REMOVE: If not necessary
         set_screen_data: function(key,value){
@@ -260,8 +257,9 @@ function odoo_project_pointing_models(project_pointing) {
         check_session: function(){
             var self = this;
             if (_.isEmpty(this.project_pointing_db.get_project_pointing_session())) {
-                return new project_pointing.Model(project_pointing.session, "project.timesheet.session").call("get_session", []).done(function(project_pointing_session) {
-                    console.log("project_pointing_session is ::: ", project_pointing_session);
+                console.log("project_pointing_session is ::: ");
+                return new project_pointing.Model(project_pointing.session, "hr.attendance").call("get_test", []).done(function(project_pointing_session) {
+                    console.log("project_pointing_session is ::: ", project_pointing.session);
                     self.project_pointing_db.add_project_pointing_session({session_id: project_pointing_session.session_id, login_number: project_pointing_session.login_number});
                 }).promise();
             }
@@ -279,6 +277,8 @@ function odoo_project_pointing_models(project_pointing) {
                 return project_pointing_session.session_id.toString() + "-" + project_pointing_session.login_number.toString() + "-" + (self.project_pointing_db.sequence);
             };
             $.when(self.check_session()).done(function(){
+
+                console.log("pt_btn_synchronize");
                 var activity_collection = self.get('activities');
                 var activity_models = activity_collection.models;
                 for (var i = 0; i < activity_models.length; i++) {

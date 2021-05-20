@@ -474,8 +474,6 @@ function odoo_project_pointing_screens(project_pointing) {
                     alert("Something went wrong, please check your username or password");
                 }
             });
-            console.log(project_pointing.session);
-            console.log(username);
             $.when(def).done(function() {
                 console.log("You can go ahead to sync data and retrieve data");
                 //Get Model data and sync with Server and then Retrieve data and store in localstorage
@@ -498,7 +496,9 @@ function odoo_project_pointing_screens(project_pointing) {
         },
         on_sync: function() {
             var self = this;
-            this.project_pointing_model.save_to_server().done(function() { //May be use always
+            console.log("yuuuuuu");
+            this.project_pointing_model.save_to_server().done(function() { //May be use always 
+                
                 self.project_pointing_widget.screen_selector.set_current_screen("activity", {}, {}, false, true);
             });
         },

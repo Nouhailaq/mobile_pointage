@@ -16,10 +16,15 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
+var express = require('express')
+var cors = require('cors')
  
 
 var app = {
     // Application Constructor
+
+
     initialize: function() {
         this.bindEvents();
     },
@@ -49,6 +54,5 @@ var app = {
 
         console.log('Received Event: ' + id);
     }
-};
 
-app.initialize();
+};

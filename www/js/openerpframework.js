@@ -1052,7 +1052,6 @@ openerp.Session = openerp.Class.extend(openerp.PropertiesMixin, {
         return this.rpc("/web/session/authenticate", params).then(function(result) {
             delete result.session_id;
             _.extend(self, result);
-            console.log(result)
         });
     },
 
