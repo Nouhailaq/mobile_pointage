@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- vim:fdl=1:
+-->
+<templates id="template" xml:space="preserve">
+    <t t-name="ProjectPointing">
+        <div class="container-fluid pt_application">
+            <div class="row screens"></div>
+        </div>
+    </t>
+
+    <t t-name="ActivityScreen">
+        <div class="pt_activity_list_screen">
+            <div class="pt_activity_header">
+                <div class="row">
+                    
+                    <div class="col-md-11 col-xs-11 col-sm-11 text-center">
+                        <center>
+                            
+                        <widget name="my_widget"/>
+                        <br />
+                        <h3>There is badges you already scanned</h3>
+                        </center>
+                        <div data-role="page" id="home">
+                            <div data-role="header">
+                                <h1>Home</h1>
+                            </div>
+
+                            <div data-role="main" class="ui-content">
+                                <p>
+                                    <a target="_blank" style="text-decoration: none"><button class="scan">Scan</button></a>
+                                    <a target="_blank" style="text-decoration: none"><button class="display">Display Scanned Data</button></a>
+                                </p>
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
+
+                <div class="pt_header_m2os">
+                    <div class="project_m2o"></div>
+                    <div class="task_m2o"></div>
+                </div>
+            </div>
+            <div class="pt_activity_col">
+                <div class="pt_activity_body">
+                <div id="display">
+
+                <div >
+                    <table  id="allTable" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name </th> 
+                                <th scope="col">Value  </th>
+                                <th scope="col">DateTime</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+                </div>
+            </div>
+            <div class="pt_footer">
+                <t t-call="Footer"></t>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="Footer">
+        <div class="container-fluid">
+            <div class="row pt_footer_row">
+                <div class="col-md-3 col-xs-3 col-sm-3 pt_stat">
+                    <span class="glyphicon glyphicon-stats"></span><span class="pt_pl_3 pt_pointer">Stats</span>
+                </div>
+                <div class="col-md-5 col-xs-5 col-sm-5 pt_sync text-center">
+                    <span class="glyphicon glyphicon-flash"></span><span class="pt_pl_3 pt_pointer"><t t-esc="widget.get_sync_label()"></t></span>
+                    <span class="pt_pending_lines badge" t-if="widget.get_pending_lines()"><t t-esc="widget.get_pending_lines()"></t></span>
+                </div>
+                
+            </div>
+        </div>
+    </t>
+
+    <t t-name="ActivityList">
+        
+    </t>
+
+    <t t-name="AddActivityScreen">
+        
+    </t>
+    
+
+    <t t-name="SyncScreen">
+        <div class="content_area" style="height: 100%;">
+            <div class="container-fluid" style="height: 100%;">
+              <div class="row well" style="height: 100%;">
+                <h4><strong>Synchronize online</strong></h4>
+                <div t-if="!project_pointing.session or !project_pointing.session.uid">
+                    <div>
+                        <input type="radio" name="pt_radio" id="pt_new_user"/> <span>I'm a new Odoo user</span>
+                    </div>
+                    <div>
+                        <input type="radio" name="pt_radio" id="pt_existing_user" checked="true"/> <span>I already have an account</span>
+                    </div>
+                    <hr/>
+                    <div class="o_new_account">
+                        <div>
+                            Choose an address
+                        </div>
+                        <div class="input-group">
+                            <input class="form-control o_input_new_address"/>
+                            <span class="input-group-addon o_new_address_suffix">.odoo.com</span>
+                        </div>
+                        <div class="pt_mt_5">
+                            <button class="btn btn-default pt_btn pt_btn_add_activity">Add Account</button> 
+                            or
+                            <a class="pt_btn_cancel">Cancel</a>
+                        </div>
+                        <div class="pt_mt_5">
+                            <h5>Why create an online account ?</h5>
+                            <div>
+                                <ul>
+                                    <li>It's free</li>
+                                    <li>Backup &amp; synchronize</li>
+                                    <li>Create bills &amp; invoices</li>
+                                    <li>Manage multiple users</li>
+                                    <li>Modify rules (ex: time increment)</li>
+                                    <li>Analyze detailed statistics and create reports</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <a href="https://www.odoo.com/page/project-management" target="_blank">Discover all the features of Odoo Project</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="o_existing_account o_active">
+                        <div>Enter your address</div>
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default dropdown-toggle pt_button_protocol" data-toggle="dropdown"><span>http://</span> <span class="caret"></span></button>
+                                <ul class="dropdown-menu" role="menu">
+                                  <li><a href="#" class="pt_select_protocol">http://</a></li>
+                                  <li><a href="#" class="pt_select_protocol">https://</a></li>
+                                </ul>
+                            </div>
+                            <input type="text" class="form-control pt_input_server_address" placeholder="Your Server Address"/>
+                        </div>
+                        <div>
+                            <div>Database</div>
+                            <div>
+                                <input type="text" class="pt_input_db"/>
+                            </div>
+                        </div>
+                        <div>
+                            <div>User Name</div>
+                            <div>
+                                <input type="text" class="pt_input_username"/>
+                            </div>
+                        </div>
+                        <div>
+                            <div>Password</div>
+                            <div>
+                                <input type="password" class="pt_input_password"/>
+                            </div>
+                        </div>
+                        <div class="pt_mt_5">
+                          <button class="btn btn-default pt_btn pt_btn_synchronize">Synchronize</button> 
+                          or
+                          <a class="pt_btn_cancel">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+                <div t-if="project_pointing.session">
+                    <div>
+                        <h4 class="pt_loggedin_message">You are already login with <t t-esc="project_pointing.session.origin" ></t> as <t t-esc="project_pointing.session.display_username" ></t>, You can directly synchronize your data</h4>
+                        <a class="pt_btn_logout pull-right">Logout</a>
+                    </div>
+                    <button class="btn btn-default pt_btn pt_btn_synchronize_existing_account">Synchronize</button>
+                    or
+                    <a class="pt_btn_cancel">Cancel</a>
+                </div>
+              </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="StatisticScreen">
+    </t>
+
+
+</templates>
