@@ -89,7 +89,14 @@
     <t t-name="AddActivityScreen">
         
     </t>
-    
+    <t t-name="Throbber">
+        <div>
+            <div class="oe_blockui_spin" style="height: 50px">
+            </div>
+            <br />
+            <div class="oe_throbber_message" style="color:white"></div>
+        </div>
+    </t>
 
     <t t-name="SyncScreen">
         <div class="content_area" style="height: 100%;">
