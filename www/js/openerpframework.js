@@ -812,6 +812,7 @@ var genericJsonRpc = function(fct_name, params, fct) {
     var xhr = fct(data);
     var result = xhr.pipe(function(result) {
         if (result.error !== undefined) {
+            console.error("Server application error", result);
             console.error("Server application error", result.error);
             return $.Deferred().reject("server", result.error);
         } else {
@@ -1052,6 +1053,7 @@ openerp.Session = openerp.Class.extend(openerp.PropertiesMixin, {
         return this.rpc("/web/session/authenticate", params).then(function(result) {
             delete result.session_id;
             _.extend(self, result);
+            console.log(result)
         });
     },
 

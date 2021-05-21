@@ -35,7 +35,10 @@ project_pointing = _.clone(openerp);;
             // Define which file to open and
             // send the request.
             Connect.open("GET", "xml/project_pointing.xml", false);
+            Connect.setRequestHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, PUT, PATCH, POST, DELETE');
+            Connect.setRequestHeader('Access-Control-Allow-Headers', 'Content-Type, X-Requested-With, Authorization');
             Connect.setRequestHeader("Content-Type", "text/xml");
+            Connect.setRequestHeader('Access-Control-Allow-Origin', '*');
             Connect.send(null);
      
             // Place the response in an XML document.
